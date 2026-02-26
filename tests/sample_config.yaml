@@ -1,0 +1,18 @@
+#
+# A sample YAML configuration for Dagra's unit tests.
+#
+
+tasks:
+  - id: task-1
+    command: "echo 'Task 1'"
+    depends_on: []
+
+  - id: task-2
+    command: "echo 'Task 2'"
+    depends_on:
+      - "task-1"
+
+  - id: task-3
+    command: "echo 'Task 3'"
+    depends_on:
+      - "task-2"

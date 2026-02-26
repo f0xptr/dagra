@@ -1,0 +1,17 @@
+# .github/config.yml
+# Configuration for community health files.
+
+# This setting prevents users from creating blank issues, encouraging them
+# to use one of the predefined templates.
+blank_issues_enabled: false
+
+# This provides a list of contact links that will be displayed on the
+# "New Issue" page, directing users to other resources if their issue
+# doesn't fit the templates.
+contact_links:
+  - name: Dagra Documentation
+    url: https://github.com/f0xptr/dagra/tree/main/docs
+    about: Please check the documentation before opening an issue.
+  - name: GitHub Security Policy
+    url: https://github.com/f0xptr/dagra/security/policy
+    about: Please report security vulnerabilities here.

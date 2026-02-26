@@ -1,0 +1,18 @@
+# .clang-tidy.in
+# This is a template for clang-tidy configuration, typically processed by CMake.
+
+Checks: >
+  -*,
+  bugprone-*,
+  clang-analyzer-*,
+  modernize-*,
+  performance-*,
+  portability-*,
+  readability-*
+
+# Regex to filter headers for static analysis.
+HeaderFilterRegex: '^(include/|src/|tests/)'
+
+# Extra compiler arguments for clang-tidy.
+ExtraArgs:
+  - -std=c++17

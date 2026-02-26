@@ -1,0 +1,15 @@
+# .clang-format-ignore
+# This file is not directly used by clang-format.
+# clang-format does not have a native ignore file.
+#
+# To ignore files:
+# - Be specific about files to format (e.g., in a script).
+# - Use `// clang-format off` and `// clang-format on` in code.
+#
+# This file serves as documentation or for custom build scripts.
+#
+# Example patterns for custom scripts:
+# src/third_party/*
+# src/generated/*
+
+build/

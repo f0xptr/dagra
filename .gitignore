@@ -1,0 +1,32 @@
+# CMake build artifacts
+build/
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
+install_manifest.txt
+CTestTestfile.cmake
+_deps/
+
+# Executables and libraries
+*.o
+*.a
+*.so
+*.dylib
+*.dll
+*.lib
+
+# Editor/IDE specific files
+.vscode/
+.idea/
+*~
+.#*
+*.bak
+*.swp
+*.swo
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp

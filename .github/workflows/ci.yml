@@ -1,0 +1,50 @@
+# .github/workflows/ci.yml
+# GitHub Actions workflow for Continuous Integration.
+
+name: CI
+
+# Trigger the workflow on push or pull request events to the main branch.
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install dependencies
+      # Install CMake and a C++ compiler (g++ is usually pre-installed on ubuntu-latest)
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y cmake build-essential
+
+    - name: Debug Compiler and Paths
+      run: |
+        echo "g++ version:"
+        g++ --version
+        echo "cmake version:"
+        cmake --version
+        echo "Checking for header file existence and content: include/dagra/cli/parser.hpp"
+        ls -l include/dagra/cli/parser.hpp
+        cat include/dagra/cli/parser.hpp
+        
+    - name: Configure and Build Project
+      # Create a build directory, configure the project, and then build it.
+      # CMAKE_EXPORT_COMPILE_COMMANDS=ON is useful for clang-tidy later.
+      run: |
+        cmake -S . -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+        cmake --build build -- VERBOSE=1
+
+    - name: Run tests
+      # Execute the CTest suite.
+      run: |
+        cd build
+        ctest --output-on-failure
+        

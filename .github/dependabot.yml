@@ -1,0 +1,19 @@
+# .github/dependabot.yml
+# Dependabot configuration for automatic dependency updates.
+
+version: 2
+updates:
+  # Check for updates to GitHub Actions.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    # Add reviewers to the PRs created by Dependabot.
+    reviewers:
+      - "f0xptr"
+    # Assign the PR to the same user.
+    assignees:
+      - "f0xptr"
+    # Add a label to the PR.
+    labels:
+      - "dependencies"

@@ -1,0 +1,19 @@
+# .clang-format
+# Code formatting configuration for clang-format.
+
+Language: Cpp
+BasedOnStyle: LLVM
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+ColumnLimit: 100
+BreakBeforeBraces: Allman
+AllowShortFunctionsOnASingleLine: None
+ConstructorInitializerIndentWidth: 4
+ContinuationIndentWidth: 4
+BreakConstructorInitializers: AfterColon
+PointerAlignment: Left
+SpaceAfterCStyleCast: false
+SpaceBeforeParens: ControlStatements
+SpacesInParentheses: false
+SortIncludes: true
