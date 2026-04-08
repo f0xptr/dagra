@@ -1,7 +1,7 @@
 /**
  * @file runner.cpp
  * @brief Implements the parallel task execution engine.
- * @version 1.0.0
+ * @version 1.1.0
  *
  * This file contains the implementation for the Runner class, which is
  * responsible for executing tasks from a DAG in the correct order and in
@@ -11,6 +11,7 @@
 #include "dagra/execution/runner.hpp"
 #include "dagra/utils/logger.hpp"
 #include <atomic>
+#include <chrono>
 #include <condition_variable>
 #include <cstdlib>
 #include <mutex>
@@ -97,7 +98,14 @@ namespace dagra::execution {
                 }
 
                 for (const auto& task : ready_tasks) {
-                    utils::Logger::dry_run("Execute Task '" + task.id + "' (Command: " + task.command + ")");
+                    std::string info = "Execute Task '" + task.id + "' (Command: " + task.command + ")";
+                    if (task.timeout_seconds > 0) {
+                        info += " [Timeout: " + std::to_string(task.timeout_seconds) + "s]";
+                    }
+                    if (!task.env_vars.empty()) {
+                        info += " [Env vars: " + std::to_string(task.env_vars.size()) + "]";
+                    }
+                    utils::Logger::dry_run(info);
                     completed_dry.insert(task.id);
                 }
             }
@@ -145,7 +153,23 @@ namespace dagra::execution {
             for (const auto& task : ready_to_start) {
                 std::thread([&, task]() {
                     utils::Logger::info("Running: [" + task.id + "] -> " + task.command);
-                    int result = std::system(task.command.c_str());
+                    
+                    // Build command with environment variables if present
+                    std::string full_command = task.command;
+                    if (!task.env_vars.empty()) {
+                        full_command = "export ";
+                        for (const auto& env : task.env_vars) {
+                            full_command += env + " ";
+                        }
+                        full_command += "&& " + task.command;
+                    }
+                    
+                    // Apply timeout if specified
+                    if (task.timeout_seconds > 0) {
+                        full_command = "timeout " + std::to_string(task.timeout_seconds) + " " + full_command;
+                    }
+                    
+                    int result = std::system(full_command.c_str());
 
                     std::lock_guard<std::mutex> lock(mtx);
                     running.erase(task.id);
@@ -153,6 +177,10 @@ namespace dagra::execution {
                     if (result == 0) {
                         completed.insert(task.id);
                         utils::Logger::success("Success: [" + task.id + "]");
+                    } else if (result == 124 * 256) {
+                        // Timeout exit code (124 from timeout command)
+                        utils::Logger::error("Timeout: [" + task.id + "] exceeded " + std::to_string(task.timeout_seconds) + " seconds");
+                        has_error = true;
                     } else {
                         utils::Logger::error("Failed: [" + task.id + "] (Exit code: " + std::to_string(result) + ")");
                         has_error = true;

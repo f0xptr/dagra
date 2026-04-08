@@ -1,18 +1,29 @@
 #
 # A sample YAML configuration for Dagra's unit tests.
 #
+# This file demonstrates the basic features of Dagra including:
+# - Task definition with dependencies
+# - Optional timeout configuration
+# - Environment variables
+#
 
 tasks:
   - id: task-1
     command: "echo 'Task 1'"
     depends_on: []
+    timeout: 30  # Optional: 30 second timeout
 
   - id: task-2
     command: "echo 'Task 2'"
     depends_on:
       - "task-1"
+    timeout: 60  # Optional: 60 second timeout
+    env:  # Optional: environment variables
+      - "LOG_LEVEL=DEBUG"
+      - "ENV=test"
 
   - id: task-3
-    command: "echo 'Task 3'"
+    command: "echo 'Task 3 completed'"
     depends_on:
       - "task-2"
+    timeout: 45  # Optional: 45 second timeout

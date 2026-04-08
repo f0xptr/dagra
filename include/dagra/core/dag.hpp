@@ -1,7 +1,7 @@
 /**
  * @file dag.hpp
  * @brief Declares the class for constructing and validating the Directed Acyclic Graph.
- * @version 1.0.0
+ * @version 1.1.0
  *
  * This file contains the declaration of the `Dag` class, which is responsible
  * for storing tasks and their relationships, as well as for validating the

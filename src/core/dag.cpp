@@ -1,7 +1,7 @@
 /**
  * @file dag.cpp
  * @brief Implements the Directed Acyclic Graph logic, including validation.
- * @version 1.0.0
+ * @version 1.1.0
  *
  * This file contains the implementation for the Dag class. It provides the
  * logic for adding tasks and, most importantly, for validating the graph to

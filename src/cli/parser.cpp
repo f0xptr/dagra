@@ -1,17 +1,21 @@
 /**
  * @file parser.cpp
  * @brief Implements the command-line argument and YAML configuration parser.
- * @version 1.0.0
+ * @version 1.1.0
  *
  * This file contains the implementation for the Parser class, which handles
- * both command-line flags and the parsing of YAML task definition files.
+ * both command-line flags and the parsing of YAML task definition files,
+ * including timeout and environment variable configurations.
  */
 
 #include "dagra/cli/parser.hpp"
 #include <stdexcept>
 #include <string>
 #include <vector>
+#include <filesystem>
 #include <yaml-cpp/yaml.h>
+
+namespace fs = std::filesystem;
 
 namespace dagra::cli {
 
@@ -66,6 +70,15 @@ namespace dagra::cli {
     std::vector<core::Task> Parser::parse_yaml(const std::string& filepath) {
         std::vector<core::Task> parsed_tasks;
 
+        // Validate file existence
+        if (!fs::exists(filepath)) {
+            throw std::runtime_error("Configuration file not found: '" + filepath + "'");
+        }
+
+        if (!fs::is_regular_file(filepath)) {
+            throw std::runtime_error("Path is not a regular file: '" + filepath + "'");
+        }
+
         try {
             YAML::Node config = YAML::LoadFile(filepath);
 
@@ -87,6 +100,26 @@ namespace dagra::cli {
                         task.dependencies.push_back(dep.as<std::string>());
                     }
                 }
+                
+                // Parse optional timeout (in seconds)
+                if (node["timeout"] && node["timeout"].IsScalar()) {
+                    try {
+                        task.timeout_seconds = node["timeout"].as<int>();
+                        if (task.timeout_seconds < 0) {
+                            throw std::runtime_error("Task '" + task.id + "' has invalid timeout (must be >= 0).");
+                        }
+                    } catch (const YAML::BadConversion&) {
+                        throw std::runtime_error("Task '" + task.id + "' has invalid timeout value (must be an integer).");
+                    }
+                }
+                
+                // Parse optional environment variables
+                if (node["env"] && node["env"].IsSequence()) {
+                    for (const auto& env : node["env"]) {
+                        task.env_vars.push_back(env.as<std::string>());
+                    }
+                }
+                
                 parsed_tasks.push_back(task);
             }
         } catch (const YAML::Exception& e) {

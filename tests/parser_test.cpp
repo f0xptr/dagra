@@ -1,7 +1,7 @@
 /**
  * @file parser_test.cpp
  * @brief Unit tests for the cli::Parser class.
- * @version 1.0.0
+ * @version 1.1.0
  *
  * This file contains tests for command-line argument parsing and YAML file
  * processing to ensure they behave as expected under various conditions.

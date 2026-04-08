@@ -1,12 +1,13 @@
 /**
  * @file runner.hpp
  * @brief Declares the class for managing parallel execution of tasks.
- * @version 1.0.0
+ * @version 1.1.0
  *
  * This file contains the declaration of the `Runner` class, which takes a
  * Directed Acyclic Graph (DAG) of tasks and executes them in parallel according
  * to their dependencies. It also supports a "dry run" mode to preview the
- * execution plan without running any commands.
+ * execution plan without running any commands. It supports task timeouts and
+ * environment variables.
  */
 
 #pragma once

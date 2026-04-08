@@ -1,7 +1,7 @@
 /**
  * @file dag_test.cpp
  * @brief Unit tests for the core::Dag class.
- * @version 1.0.0
+ * @version 1.1.0
  *
  * This file contains tests for the Directed Acyclic Graph implementation,
  * focusing on task addition, dependency validation, and cycle detection.

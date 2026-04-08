@@ -1,7 +1,7 @@
 /**
  * @file runner_test.cpp
  * @brief Unit tests for the execution::Runner class.
- * @version 1.0.0
+ * @version 1.1.0
  *
  * This file contains tests for the task execution runner, specifically focusing
  * on the dry-run functionality to ensure it correctly simulates task execution

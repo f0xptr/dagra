@@ -8,6 +8,8 @@ Dagra is a simple yet powerful task runner based on a Directed Acyclic Graph (DA
 -   **Parallel Execution**: Dagra automatically runs tasks in parallel when their dependencies are satisfied, speeding up the overall workflow.
 -   **YAML Configuration**: A simple and human-readable YAML format is used to define tasks.
 -   **Dry-Run Mode**: A `--dry-run` flag allows you to preview the execution plan without running any commands.
+-   **Task Timeouts**: Prevent hanging tasks by specifying optional timeout values in seconds.
+-   **Environment Variables**: Pass environment variables to individual tasks for flexible configuration.
 -   **Robust Validation**: The dependency graph is validated for missing tasks and circular dependencies before execution.
 
 ## Getting Started
@@ -30,10 +32,15 @@ Create a `config.yaml` file to define your tasks:
 tasks:
   - id: hello
     command: "echo 'Hello from Dagra!'"
+    timeout: 30  # Optional: 30 second timeout
+    
   - id: world
     command: "echo 'World is waiting for hello.'"
     depends_on:
       - hello
+    timeout: 60
+    env:  # Optional: environment variables
+      - "MESSAGE=Hello World"
 ```
 
 Then, run Dagra with your configuration file:

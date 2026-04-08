@@ -1,7 +1,7 @@
 /**
  * @file main.cpp
  * @brief The entry point for the Dagra CLI tool.
- * @version 1.0.0
+ * @version 1.1.0
  *
  * This file contains the main function that orchestrates the entire Dagra
  * application lifecycle. It parses command-line arguments, loads tasks from

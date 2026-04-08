@@ -1,7 +1,7 @@
 /**
  * @file main.cpp
  * @brief The main entry point for the Dagra test suite.
- * @version 1.0.0
+ * @version 1.1.0
  *
  * This file contains the main function that initializes and runs the GoogleTest
  * framework, executing all discovered unit tests.

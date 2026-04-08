@@ -1,7 +1,7 @@
 /**
  * @file logger.hpp
  * @brief A thread-safe, colorful logging utility for the Dagra application.
- * @version 1.0.0
+ * @version 1.1.0
  *
  * Provides static methods for logging messages at different levels (INFO, SUCCESS,
  * WARN, ERROR, DRY-RUN), each with a distinct color for better readability in

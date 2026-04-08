@@ -1,6 +1,6 @@
 #
 # CMake build configuration for the Dagra project.
-# Version: 1.0.0
+# Version: 1.1.0
 #
 # This file governs how the project is built, including its dependencies,
 # source files, and test suite configuration.
@@ -8,7 +8,7 @@
 
 # Set the minimum required version of CMake and define the project.
 cmake_minimum_required(VERSION 3.17)
-project(Dagra VERSION 1.0.0 LANGUAGES CXX)
+project(Dagra VERSION 1.1.0 LANGUAGES CXX)
 
 # Set the C++ standard to C++17 and enforce it.
 set(CMAKE_CXX_STANDARD 17)

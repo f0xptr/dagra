@@ -1,11 +1,11 @@
 /**
  * @file parser.hpp
  * @brief Defines the command-line argument parser and YAML configuration loader.
- * @version 1.0.0
+ * @version 1.1.0
  *
  * This file declares the `Parser` class, which is responsible for interpreting
  * command-line arguments and parsing the user-provided YAML file that defines
- * the tasks for Dagra to execute.
+ * the tasks for Dagra to execute, including timeout and environment variables.
  */
 
 #pragma once
